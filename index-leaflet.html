@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>
+      Santiago Pedaleable
+  </title>
+
+<!--leaflet-->
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+<!--favicon-->
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<!--google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  html, body {
+    height: 100%;
+  }
+
+#header {
+height: 40px;
+background-color: #323232;
+}
+
+#header h1 {
+font-weight: normal;
+color: #E63C1E;
+margin: 0px;
+padding-left: 10px;
+padding-top: 5px;
+font-family: 'Ropa Sans', sans-serif;
+}
+
+#map {
+height: calc(100% - 40px);
+position:relative;
+}
+
+
+</style>
+
+</head>
+
+<div id="header">
+  <h1>Vías Verdes (liviano)</h1>
+</div>
+
+<div id="map"></div>
+
+
+<!-- leaflet ajax -->
+
+<script src="http://calvinmetcalf.github.io/leaflet-ajax/dist/leaflet.ajax.js"></script>
+
+
+</div>
+
+<script>
+
+var map = L.map('map').setView([-33.4370,-70.6376], 7);
+
+var mapaViasVerdes = L.tileLayer('https://api.mapbox.com/styles/v1/ignacioabe/civ8qtnvx000x2ioezsr29glh/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaWduYWNpb2FiZSIsImEiOiJsTDV0dWFJIn0.Og513NMky_08_sXUUDsrbA', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+
+</script>

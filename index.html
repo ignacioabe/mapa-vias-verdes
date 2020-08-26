@@ -1,77 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
   <meta charset="UTF-8">
   <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 
   <title>
-      Vías Verdes Chile
+    Vías Verdes Chile
   </title>
 
-<!--mapbox gl js-->
+  <!--mapbox gl js-->
 
-<script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
-<!--favicon-->
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css" rel="stylesheet" />
+  <!--favicon-->
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-<!--google fonts-->
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono:700i" rel="stylesheet">
+  <!--google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:700i" rel="stylesheet">
 
-<style>
-  body {
-    padding: 0;
-    margin: 0;
-  }
-  html, body {
-    height: 100%;
-  }
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
 
-#header {
-height: 40px;
-background-color: #F2EEE8;
-}
+    html,
+    body {
+      height: 100%;
+    }
 
-#header h1 {
-font-weight: normal;
-color: #006614;
-margin: 0px;
-padding-left: 10px;
-padding-top: 5px;
-font-family: 'Roboto Mono', monospace;
-}
+    #header {
+      height: 40px;
+      background-color: #F2EEE8;
+    }
 
-#map {
-height: calc(100% - 40px);
-position:relative;
-}
+    #header h1 {
+      font-weight: normal;
+      color: #006614;
+      margin: 0px;
+      padding-left: 10px;
+      padding-top: 5px;
+      font-family: 'Roboto Mono', monospace;
+    }
 
+    #map {
+      height: calc(100% - 40px);
+      position: relative;
+    }
 
-</style>
+    #boton-leyenda {
+      position: absolute;
+      bottom: 40px;
+      right: 10px;
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+
+    .legend {
+      background-color: #F2EEE8;
+      border-radius: 3px;
+      bottom: 70px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10);
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      padding: 10px;
+      position: absolute;
+      right: 10px;
+      z-index: 1;
+    }
+
+    .legend h4 {
+      margin: 0 0 10px;
+    }
+
+    .legend div span {
+      border-radius: 50%;
+      display: inline-block;
+      height: 10px;
+      margin-right: 5px;
+      width: 10px;
+    }
+  </style>
 
 </head>
 
-<div id="header">
-  <h1>Vías Verdes (cl)</h1>
-</div>
+<body>
 
-<div id="map"></div>
+  <div id="header">
+    <h1>Vías Verdes (cl)</h1>
+  </div>
 
-</div>
+  <div id="map"></div>
 
-<script>
+  <button id="boton-leyenda" onclick="ocultaLeyenda()">VER/OCULTAR LEYENDA</button>
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiaWduYWNpb2FiZSIsImEiOiJsTDV0dWFJIn0.Og513NMky_08_sXUUDsrbA';
-var map = new mapboxgl.Map({
-    container: 'map', // container id
-    style: 'mapbox://styles/ignacioabe/cjuqi66a600791flgx3u2f3ac', //stylesheet location
-    center: [-70.6,-33.4], // starting position
-    zoom: 7, // starting zoom
-    hash: true
-});
+  <div id='state-legend' class='legend'>
+    <h4>Ferrovías de Chile</h4>
+    <div><span style='background-color: #9e5f5d'></span>Ferrovías en uso</div>
+    <div><span style='background-color: #5a9560'></span>Ferrovías en desuso</div>
+    <div><span style='background-color: #444444'></span>Ferrovías desmanteladas</div>
+    <div>
+      <p>
+        Fuente: <a href="https://www.amigosdeltren.cl/">amigos del tren</a><br>
+        Programado por: <a href="https://ignacioabe.cl">Ignacio Abé</a><br>
+        Para: <a href="https://pedaleable.org">pedaleable.org</a>
+      </p>
+    </div>
+  </div>
 
-</script>
+  </div>
+
+  <script>
+    function ocultaLeyenda() {
+      var x = document.getElementById("state-legend");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaWduYWNpb2FiZSIsImEiOiJsTDV0dWFJIn0.Og513NMky_08_sXUUDsrbA';
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/ignacioabe/cjuqi66a600791flgx3u2f3ac', //stylesheet location
+      center: [-70.6, -33.4], // starting position
+      zoom: 7, // starting zoom
+      hash: true
+    });
+  </script>
+
+</body>
+
+</html>
